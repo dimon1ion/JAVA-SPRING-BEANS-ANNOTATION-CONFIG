@@ -1,7 +1,11 @@
 package com.my.springApp.models;
 
 import com.my.springApp.models.enums.BodyType;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
+@Component
+@Scope(value = "prototype")
 public class Body {
     private BodyType type;
     private double weight;

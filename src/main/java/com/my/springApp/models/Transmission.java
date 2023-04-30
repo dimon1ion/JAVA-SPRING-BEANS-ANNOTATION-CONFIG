@@ -1,7 +1,11 @@
 package com.my.springApp.models;
 
 import com.my.springApp.models.enums.TransmissionType;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
+@Component
+@Scope(value = "prototype")
 public class Transmission {
     private int numberOfGears;
     private TransmissionType type;

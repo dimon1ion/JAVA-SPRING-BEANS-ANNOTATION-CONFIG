@@ -1,7 +1,12 @@
 package com.my.springApp.models;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
 import java.util.List;
 
+@Component
+@Scope(value = "prototype")
 public class Car {
     private String brand;
     private String name;
@@ -67,6 +72,32 @@ public class Car {
         this.body = body;
     }
 
+    public double getTotalPrice(){
+        double totalsum = margin;
+        if (engine != null)
+            totalsum += engine.getPrice();
+        if (transmission != null)
+            totalsum += transmission.getPrice();
+        if (!wheels.isEmpty())
+            totalsum += wheels.stream().mapToDouble(Wheel::getPrice).sum();
+        if (body != null)
+            totalsum += body.getPrice();
+        return totalsum;
+    }
+
+    public double getTotalWeight(){
+        double totalWeight = 0;
+        if (engine != null)
+            totalWeight += engine.getWeight();
+        if (transmission != null)
+            totalWeight += transmission.getWeight();
+        if (!wheels.isEmpty())
+            totalWeight += wheels.stream().mapToDouble(Wheel::getWeight).sum();
+        if (body != null)
+            totalWeight += body.getWeight();
+        return totalWeight;
+    }
+
     @Override
     public String toString() {
         StringBuilder carInfo = new StringBuilder();
@@ -74,13 +105,16 @@ public class Car {
                 "\nBrand: " + brand +
                 "\nName: " + name +
                 "\nBody: " + body.getType().name() +
-                "\nTransmission: " + transmission.getType().name() +
+                "\nTransmission: " +
+                "\n\tType:" + transmission.getType().name() +
+                "\n\tNumber of gears: " + transmission.getNumberOfGears() +
                 "\nEngine: " +
                 "\n\thorse power:" + engine.getHorsepower() +
                 "\n\tvolume:" + engine.getVolume() +
                 "\nWheels:" );
         wheels.forEach(wheel -> carInfo.append("\n\tdiameter:" + wheel.getDiameter()));
-        carInfo.append("\n");
+        carInfo.append("\nPrice: " + getTotalPrice());
+        carInfo.append("\nWeight: " + getTotalWeight() + "\n");
         return carInfo.toString();
     }
 }

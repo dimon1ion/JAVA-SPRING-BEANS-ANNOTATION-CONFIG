@@ -1,20 +1,20 @@
 package com.my.springApp;
 
+import com.my.springApp.configs.SpringConfig;
 import com.my.springApp.models.Car;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
     public static void main(String[] args){
-        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SpringConfig.class);
         List<Car> cars = new ArrayList<>();
-        cars.add(context.getBean("carFerrariF2-23", Car.class));
-        cars.add(context.getBean("carFerrari-luxury", Car.class));
-        cars.add(context.getBean("carBmwX5M-23", Car.class));
-        cars.add(context.getBean("carBmw-PressF", Car.class));
-
+        cars.add(context.getBean("carFerrariF223", Car.class));
+        cars.add(context.getBean("carFerrariLuxury", Car.class));
+        cars.add(context.getBean("carBmwX5M23", Car.class));
+        cars.add(context.getBean("carBmw_PressF", Car.class));
         cars.forEach(System.out::println);
     }
 }

@@ -1,5 +1,10 @@
 package com.my.springApp.models;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
+@Component
+@Scope(value = "prototype")
 public class Engine {
     private int horsepower;
     private int volume;
